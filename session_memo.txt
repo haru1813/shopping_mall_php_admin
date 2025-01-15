@@ -1,0 +1,19 @@
+로그인
+
+/index.php
+
+세션 검증
+haruMarket_user_index : 이미 로그인 인증이 되어있다면 해당 페이지로 접속 불가능
+
+/index_api.php
+
+세션 생성
+haruMarket_user_index : 로그인 성공 시 동시에 로그인 인증 처리
+
+/pages/*
+
+세션 검증
+haruMarket_user_index : 로그인 인증이 되어야 해당 페이지로 접속 불가능
+
+-----------
+
