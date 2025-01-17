@@ -1,12 +1,18 @@
 if (/Android|iPhone/i.test(navigator.userAgent)) {
     const pc = document.getElementById("pc");
-    pc.style.display = 'none';
+
+    if(pc){
+      pc.style.display = 'none';
+    }
+    
 }
 else {
     const pc = document.getElementById("pc");
-    pc.style.width = (screen.width + 0) + "px";
-    pc.style.height = (screen.height + 0) + "px";
-    pc.style.display = 'block';
+    if(pc){
+      pc.style.width = (screen.width + 0) + "px";
+      pc.style.height = (screen.height + 0) + "px";
+      pc.style.display = 'block';
+    }
 }
 
 function ajax_send(formData, url){
