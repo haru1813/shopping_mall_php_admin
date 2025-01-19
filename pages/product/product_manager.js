@@ -1,5 +1,12 @@
 let user_manager = {
     firstGrid : new ax5.ui.grid(),
+    harumarket_product_content_if : new toastui.Editor({
+        el: document.querySelector('#harumarket_product_content_if'),
+        previewStyle: 'vertical',
+        initialEditType: 'wysiwyg',
+        height: '75vh',
+        initialValue: ""
+    }),
     init: function(){
         let _this = this;
 
@@ -17,6 +24,7 @@ let user_manager = {
         document.getElementById('product_manager').classList.add('active');
 
         _this.grid_init();
+        _this.option_init();
 
         document.addEventListener('click', (event) => {
             if (event.target.id === 'insert') {
@@ -50,14 +58,28 @@ let user_manager = {
 
                 _this.image_upload(event,file);
             }
-        });
 
-        let editor = new toastui.Editor({
-            el: document.querySelector('#editor'),
-            previewStyle: 'vertical',
-            initialEditType: 'wysiwyg',
-            height: '75vh',
-            initialValue: ""
+            if (event.target.id === 'harumarket_product_colorView_if'){
+                if (event.target.checked){
+                    const harumarket_productColor_if = document.querySelector('#harumarket_productColor_if');
+                    harumarket_productColor_if.style.visibility = "visible";
+                }
+                else{
+                    const harumarket_productColor_if = document.querySelector('#harumarket_productColor_if');
+                    harumarket_productColor_if.style.visibility = "hidden";
+                }
+            }
+
+            if (event.target.id === 'harumarket_product_sizeView_if'){
+                if (event.target.checked){
+                    const harumarket_productSize_if = document.querySelector('#harumarket_productSize_if'); 
+                    harumarket_productSize_if.style.visibility = "visible";
+                }
+                else{
+                    const harumarket_productSize_if = document.querySelector('#harumarket_productSize_if');
+                    harumarket_productSize_if.style.visibility = "hidden";
+                }
+            }
         });
 
         _this.search();
@@ -82,6 +104,48 @@ let user_manager = {
             multipleSelect: false
         });
     },
+    option_init:function(){
+        const harumarket_productColor_if = document.querySelector('#harumarket_productColor_if'); 
+        harumarket_productColor_if.innerHTML = '';
+
+        var formData = new FormData();
+        formData.append("type", "harumarket_OpsionSelect");
+        formData.append("table_name", "harumarket_productcolor");
+        data = ajax_send(formData,"./product_manager_api.php");
+
+        data.msg.forEach(function(item) {
+            harumarket_productColor_if.innerHTML += `
+                <li class="list-group-item">
+                    <div class="form-check mb-0">
+                        <input class="form-check-input" type="checkbox" value="${item.harumarket_productColor_index}">
+                        <label class="form-check-label mb-0">
+                            ${item.harumarket_productColor_name}
+                        </label>
+                    </div>
+                </li>
+            `;
+        });
+
+        const harumarket_productSize_if = document.querySelector('#harumarket_productSize_if'); 
+        harumarket_productSize_if.innerHTML = '';
+
+        formData.append("type", "harumarket_OpsionSelect");
+        formData.append("table_name", "harumarket_productsize");
+        data = ajax_send(formData,"./product_manager_api.php");
+
+        data.msg.forEach(function(item) {
+            harumarket_productSize_if.innerHTML += `
+                <li class="list-group-item">
+                    <div class="form-check mb-0">
+                        <input class="form-check-input" type="checkbox" value="${item.harumarket_productSize_index}">
+                        <label class="form-check-label mb-0">
+                            ${item.harumarket_productSize_name}
+                        </label>
+                    </div>
+                </li>
+            `;
+        });
+    },
     search: function(){
         let haruMarket_productCategory_name = document.getElementById('haruMarket_productCategory_name').value;
         let haruMarket_productCategory_view = document.getElementById('haruMarket_productCategory_view').value;
@@ -96,7 +160,8 @@ let user_manager = {
     },
     insert: function(){
         var formData = new FormData();
-        formData.append("type", "category");
+        formData.append("type", "harumarket_OpsionSelect");
+        formData.append("table_name", "harumarket_productcategory");
         data = ajax_send(formData,"./product_manager_api.php");
 
         let insertForm = document.insertForm;
@@ -104,13 +169,13 @@ let user_manager = {
         let option = document.createElement('option');
         option.value = '';
         option.text = '선택';
-        insertForm.harumarket_productcategory.appendChild(option);
+        insertForm.haruMarket_productCategory_index.appendChild(option);
 
         data.msg.forEach(function(item) {
             option = document.createElement('option');
             option.value = item.haruMarket_productCategory_index;
             option.text = item.haruMarket_productCategory_name;
-            insertForm.harumarket_productcategory.appendChild(option);
+            insertForm.haruMarket_productCategory_index.appendChild(option);
         });
 
         var myModal = new bootstrap.Modal(document.getElementById("product_manager_insertModal"), {});
@@ -119,35 +184,102 @@ let user_manager = {
     insertProcess: function(){
         let insertForm = document.insertForm;
 
-        let haruMarket_productCategory_name = insertForm.haruMarket_productCategory_name.value;
-        let haruMarket_productCategory_view = insertForm.haruMarket_productCategory_view.value;
+        let harumarket_product_view = insertForm.harumarket_product_view.checked;
 
-        if(haruMarket_productCategory_name == ""){
-            toastr.error('카테고리 이름을 입력하여 주십시오.');
-            insertForm.haruMarket_productCategory_name.focus();
+        let haruMarket_productCategory_index = insertForm.haruMarket_productCategory_index.value;
+        if(haruMarket_productCategory_index == ""){
+            toastr.error('카테고리를 선택하여 주십시오.');
+            insertForm.haruMarket_productCategory_index.focus();
             return;
         }
-        if(haruMarket_productCategory_name.length >= 10){
-            toastr.error('카테고리 이름은 10자 이내로 입력하여 주십시오.');
-            insertForm.haruMarket_productCategory_name.focus();
+
+        let harumarket_product_name = insertForm.harumarket_product_name.value;
+        if(harumarket_product_name == ""){
+            toastr.error('상품 이름을 입력하여 주십시오.');
+            insertForm.harumarket_product_name.focus();
             return;
         }
-        if(haruMarket_productCategory_view == ""){
-            toastr.error('홈페이지 노출 여부를 입력하여 주십시오.');
-            insertForm.haruMarket_productCategory_view.focus();
+        if(harumarket_product_name.length > 100){
+            toastr.error('상품 이름은 100자 밑으로 입력하여 주십시오.');
+            insertForm.harumarket_product_name.focus();
             return;
         }
-        
+        let harumarket_product_originPrice = insertForm.harumarket_product_originPrice.value;
+        if(harumarket_product_originPrice == ""){
+            toastr.error('상품 가격을 입력하여 주십시오.');
+            insertForm.harumarket_product_originPrice.focus();
+            return;
+        }
+        let harumarket_product_salePrice = insertForm.harumarket_product_salePrice.value;
+        if(harumarket_product_salePrice == ""){
+            toastr.error('상품 할인 가격을 입력하여 주십시오.');
+            insertForm.harumarket_product_salePrice.focus();
+            return;
+        }
+
+        let harumarket_product_picture = insertForm.harumarket_product_picture.files[0];
+        if(!harumarket_product_picture){
+            toastr.error('상품 사진을 등록하여 주십시오.');
+            insertForm.harumarket_product_picture.focus();
+            return;
+        }
+
+        let harumarket_product_colorView = insertForm.harumarket_product_colorView.checked;
+        let harumarket_product_sizeView = insertForm.harumarket_product_sizeView.checked;
+
+        if(!harumarket_product_colorView && !harumarket_product_sizeView){
+            toastr.error('상품 색상이나 크기 둘 중에 하나는 선택하여 주십시오.');
+            return;
+        }
+
+        let harumarket_product_colorIndexs = "";
+        if(harumarket_product_colorView){
+            const ul = document.getElementById("harumarket_productColor_if");
+            const checkboxes = ul.querySelectorAll('input[type="checkbox"]:checked');
+            const checkedValues = [];
+            checkboxes.forEach(checkbox => {
+                checkedValues.push(checkbox.value);
+            });
+            
+            harumarket_product_colorIndexs = `{${checkedValues.join(',')}}`;
+        }
+        let harumarket_product_sizeIndexs = "";
+        if(harumarket_product_sizeView){
+            const ul = document.getElementById("harumarket_productSize_if");
+            const checkboxes = ul.querySelectorAll('input[type="checkbox"]:checked');
+            const checkedValues = [];
+            checkboxes.forEach(checkbox => {
+                checkedValues.push(checkbox.value);
+            });
+            
+            harumarket_product_sizeIndexs = `{${checkedValues.join(',')}}`;
+        }
+
+        let harumarket_product_content = this.harumarket_product_content_if.getHTML();
+        if(harumarket_product_content == "<p><br></p>"){
+            toastr.error('상품 상세 설명을 작성하여 주십시오.');
+            return;
+        }
+
         var formData = new FormData();
         formData.append("type", "insert");
-        formData.append("haruMarket_productCategory_name", haruMarket_productCategory_name);
-        formData.append("haruMarket_productCategory_view", haruMarket_productCategory_view);
+        formData.append("haruMarket_productCategory_index", haruMarket_productCategory_index);
+        formData.append("harumarket_product_name", harumarket_product_name);
+        formData.append("harumarket_product_colorView", harumarket_product_colorView);
+        formData.append("harumarket_product_sizeView", harumarket_product_sizeView);
+        formData.append("harumarket_product_colorIndexs", harumarket_product_colorIndexs);
+        formData.append("harumarket_product_sizeIndexs", harumarket_product_sizeIndexs);
+        formData.append("harumarket_product_picture", harumarket_product_picture);
+        formData.append("harumarket_product_content", harumarket_product_content);
 
-        data = ajax_send(formData,"./category_manager_api.php");
+        formData.append("harumarket_product_view", harumarket_product_view);
+        formData.append("harumarket_product_originPrice", harumarket_product_originPrice);
+        formData.append("harumarket_product_salePrice", harumarket_product_salePrice);
+        
+        data = ajax_send(formData,"./product_manager_api.php");
 
         if(data.code == "200"){
             toastr.success(data.msg);
-            this.search();
         }
         else{
             toastr.error(data.msg);

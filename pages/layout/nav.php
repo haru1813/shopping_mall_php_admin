@@ -24,6 +24,8 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/pages/product/category_manager.php" id="category_manager">상품 카테고리 관리</a></li>
+                                <li><a class="dropdown-item" href="/pages/product/productColor_manager.php" id="productColor_manager">상품 색상 관리</a></li>
+                                <li><a class="dropdown-item" href="/pages/product/productSize_manager.php" id="productSize_manager">상품 크기 관리</a></li>
                                 <li><a class="dropdown-item" href="/pages/product/product_manager.php" id="product_manager">상품 관리</a></li>
                             </ul>
                         </li>

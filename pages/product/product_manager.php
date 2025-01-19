@@ -65,17 +65,41 @@
                 <div class="modal-body">
                     <div class="container-fluid pt-1">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_view">
+                                    <label class="form-check-label" for="harumarket_product_view">
+                                        상품 화면 노출 여부
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-6">
                                 <div class="input-group input-group-sm">
                                     <label class="input-group-text" for="inputGroupSelect01">카테고리</label>
-                                    <select name="harumarket_productcategory" class="form-select" style="height:31px;">
+                                    <select name="haruMarket_productCategory_index" class="form-select" style="height:31px;">
                                     </select>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="input-group input-group-sm">
-                                    <span class="input-group-text" id="basic-addon1">상품 이름 50자</span>
-                                    <input name="haruMarket_productCategory_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
+                                    <span class="input-group-text" id="basic-addon1">상품 이름</span>
+                                    <input name="harumarket_product_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" id="basic-addon1">상품 가격</span>
+                                    <input name="harumarket_product_originPrice" type="int" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" id="basic-addon1">상품 할인 가격</span>
+                                    <input name="harumarket_product_salePrice" type="int" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
                                 </div>
                             </div>
                         </div>
@@ -83,7 +107,7 @@
                             <div class="col-12">
                                 <label class="form-label mt-3">상품 사진</label>
                                 <div class="mb-3">
-                                    <input class="form-control" type="file" id="formFile">
+                                    <input class="form-control" type="file" name="harumarket_product_picture" id="formFile">
                                 </div>
                             </div>
                         </div>
@@ -94,8 +118,40 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_colorView" id="harumarket_product_colorView_if">
+                                    <label class="form-check-label" for="harumarket_product_colorView">
+                                        상품 색상
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="list-group list-group-horizontal" id="harumarket_productColor_if" style="visibility: hidden;">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_sizeView" id="harumarket_product_sizeView_if">
+                                    <label class="form-check-label" for="harumarket_product_sizeView">
+                                        상품 크기
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="list-group list-group-horizontal" id="harumarket_productSize_if" style="visibility: hidden;">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <label class="form-label mt-3">상품 상세</label>
-                                <div id="editor"></div>
+                                <div id="harumarket_product_content_if"></div>
                             </div>
                         </div>
                         

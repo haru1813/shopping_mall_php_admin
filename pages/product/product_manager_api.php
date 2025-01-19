@@ -5,27 +5,16 @@ function message($message,$code = "999"){
     $result = json_encode($data);
     echo $result;
 }
-function validateText($text) {
-    $pattern = "/^[a-z0-9]{1,20}$/";
-    return preg_match($pattern, $text);
-}
-function generateRandomPassword($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
-  }
 ?>
 <?php
 $type = $_POST["type"];
 
-if($type == "category"){
+if($type == "harumarket_OpsionSelect"){
+    $table_name = $_POST["table_name"];
+
     include($_SERVER["DOCUMENT_ROOT"].'/db/db_connect1.php');
 
-    $sql = "select * from harumarket_productcategory;";
+    $sql = "select * from $table_name;";
 
     $result = mysqli_query($con, $sql);
 
@@ -38,54 +27,75 @@ if($type == "category"){
     return;
 }
 if($type == "insert"){
-    $haruMarket_productCategory_name = $_POST["haruMarket_productCategory_name"];
-    $haruMarket_productCategory_view = $_POST["haruMarket_productCategory_view"];
+    $haruMarket_productCategory_index = $_POST["haruMarket_productCategory_index"];
+    $harumarket_product_name = $_POST["harumarket_product_name"];
+    $harumarket_product_colorView = $_POST["harumarket_product_colorView"];
+    $harumarket_product_sizeView = $_POST["harumarket_product_sizeView"];
+    $harumarket_product_colorIndexs = $_POST["harumarket_product_colorIndexs"];
+    $harumarket_product_sizeIndexs = $_POST["harumarket_product_sizeIndexs"];
 
-    if($haruMarket_productCategory_name == ""){
-        message("카테고리 이름을 입력하여 주십시오.","500");
-        return;
-    }
+    $target_dir = "./"; 
+    $target_file = $target_dir . basename($_FILES["harumarket_product_picture"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    move_uploaded_file($_FILES["harumarket_product_picture"]["tmp_name"], $target_file);
+    $harumarket_product_picture = file_get_contents($target_file);
+    
+    $harumarket_product_content = $_POST["harumarket_product_content"];
 
-    if($haruMarket_productCategory_view == ""){
-        message("홈페이지 노출 여부를 입력하여 주십시오.","500");
-        return;
-    }
-
-    session_start();
-    $haruMarket_productCategory_insertUserIndex = $_SESSION['haruMarket_user_index'];
+    $harumarket_product_view = $_POST["harumarket_product_view"];
+    $harumarket_product_originPrice = $_POST["harumarket_product_originPrice"];
+    $harumarket_product_salePrice = $_POST["harumarket_product_salePrice"];
 
     include($_SERVER["DOCUMENT_ROOT"].'/db/db_connect2.php');
     $pdo->beginTransaction();
 
     try{
-        $sql = "insert into harumarket_productcategory(";
-        $sql .= "haruMarket_productCategory_name,";
-        $sql .= "haruMarket_productCategory_view,";
-        $sql .= "haruMarket_productCategory_insertUserIndex";
-        $sql .= ") ";
-        $sql .= "values(";
-        $sql .= "?,";
-        $sql .= "?,";
-        $sql .= "?";
-        $sql .= ")";
+        session_start();
+        $harumarket_product_insertUserIndex = $_SESSION['haruMarket_user_index'];
+
+        $sql = "insert into harumarket_product(";
+        $sql .= "haruMarket_productCategory_index,";
+        $sql .= "harumarket_product_name,";
+        $sql .= "harumarket_product_colorView,";
+        $sql .= "harumarket_product_sizeView,";
+        $sql .= "harumarket_product_colorIndexs,";
+        $sql .= "harumarket_product_sizeIndexs,";
+        $sql .= "harumarket_product_picture,";
+        $sql .= "harumarket_product_content,";
+        $sql .= "harumarket_product_insertUserIndex,";
+        $sql .= "harumarket_product_view,";
+        $sql .= "harumarket_product_originPrice,";
+        $sql .= "harumarket_product_salePrice";
+        $sql .= ") values(?,?,?,?,?,?,?,?,?,?,?,?);";
 
         $stmt = $pdo->prepare($sql);
 
-        $stmt->bindParam(1, $haruMarket_productCategory_name);
-        $stmt->bindParam(2, $haruMarket_productCategory_view);
-        $stmt->bindParam(3, $haruMarket_productCategory_insertUserIndex);
+        $stmt->bindParam(1, $haruMarket_productCategory_index);
+        $stmt->bindParam(2, $harumarket_product_name);
+        $stmt->bindParam(3, $harumarket_product_colorView);
+        $stmt->bindParam(4, $harumarket_product_sizeView);
+        $stmt->bindParam(5, $harumarket_product_colorIndexs);
+        $stmt->bindParam(6, $harumarket_product_sizeIndexs);
+        $stmt->bindParam(7, $harumarket_product_picture);
+        $stmt->bindParam(8, $harumarket_product_content);
+        $stmt->bindParam(9, $harumarket_product_insertUserIndex);
+        $stmt->bindParam(10, $harumarket_product_view);
+        $stmt->bindParam(11, $harumarket_product_originPrice);
+        $stmt->bindParam(12, $harumarket_product_salePrice);
 
         $stmt->execute();
     }
     catch(Exception $e){
         $pdo->rollBack();
-        message($e->getMessage() ,"500");
-        //message("카테고리 등록을 실패하였습니다.","500");
+        //message($e->getMessage() ,"500");
+        message("상품 등록을 실패하였습니다.","500");
         return;
     }
 
+    unlink($target_file);
     $pdo->commit();
-    message("카테고리가 등록 되었습니다.","200");
+    message("상품을 등록하였습니다.","200");
 }
 if($type == "search"){
     $haruMarket_productCategory_name = $_POST["haruMarket_productCategory_name"];
