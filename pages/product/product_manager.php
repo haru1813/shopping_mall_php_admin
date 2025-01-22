@@ -12,18 +12,75 @@
                         <div class="row">
                             <div class="col-3">
                                 <div class="input-group input-group-sm">
-                                    <span class="input-group-text" id="basic-addon1">카테고리 이름</span>
-                                    <input id="haruMarket_productCategory_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
-                                </div>
-                            </div>
-                            <div class="col-3">
-                                <div class="input-group input-group-sm">
-                                <label class="input-group-text" for="inputGroupSelect01">홈페이지 노출 여부</label>
-                                    <select id="haruMarket_productCategory_view" class="form-select" style="height:31px;">
+                                <label class="input-group-text" for="inputGroupSelect01">상품 화면 노출 여부</label>
+                                    <select id="harumarket_product_view" class="form-select" style="height:31px;">
                                         <option value="" selected>선택</option>
                                         <option value="1">노출</option>
                                         <option value="0">비노출</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                <label class="input-group-text" for="inputGroupSelect01">카테고리</label>
+                                    <select id="haruMarket_productCategory_index" class="form-select" style="height:31px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" id="basic-addon1">상품 이름</span>
+                                    <input id="harumarket_product_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                <label class="input-group-text" for="inputGroupSelect01">상품 색상 노출 여부</label>
+                                    <select id="harumarket_product_colorView" class="form-select" style="height:31px;">
+                                        <option value="" selected>선택</option>
+                                        <option value="1">노출</option>
+                                        <option value="0">비노출</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                <label class="input-group-text" for="inputGroupSelect01">상품 사이즈 노출 여부</label>
+                                    <select id="harumarket_product_sizeView" class="form-select" style="height:31px;">
+                                        <option value="" selected>선택</option>
+                                        <option value="1">노출</option>
+                                        <option value="0">비노출</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                <label class="input-group-text" for="inputGroupSelect01">상품 색상</label>
+                                    <select id="harumarket_product_colorIndexs" class="form-select" style="height:31px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                <label class="input-group-text" for="inputGroupSelect01">상품 크기</label>
+                                    <select id="harumarket_product_sizeIndexs" class="form-select" style="height:31px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                    <label class="input-group-text" for="inputGroupSelect01">상품 가격</label>
+                                    <input id="harumarket_product_originPrice_min" type="number" aria-label="First name" class="form-control" style="height:31px;" placeholder="상품 최소 가격">
+                                    <input id="harumarket_product_originPrice_max" type="number" aria-label="Last name" class="form-control" style="height:31px;" placeholder="상품 최대 가격">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                    <label class="input-group-text" for="inputGroupSelect01">상품 할인 가격</label>
+                                    <input id="harumarket_product_salePrice_min" type="number" aria-label="First name" class="form-control" style="height:31px;" placeholder="상품 할인 최소 가격">
+                                    <input id="harumarket_product_salePrice_max" type="number" aria-label="Last name" class="form-control" style="height:31px;" placeholder="상품 할인 최대 가격">
                                 </div>
                             </div>
                         </div>
@@ -33,6 +90,7 @@
                         <button class="btn btn-primary btn-sm" type="button" id="search">조회</button>
                         <button class="btn btn-success btn-sm" type="button" id="insert">등록</button>
                         <button class="btn btn-warning btn-sm" type="button" id="update">수정</button>
+                        <button class="btn btn-success btn-sm" type="button" id="insert_mecro">등록 매크로</button>
                     </div>
                 </div>
                 
@@ -103,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-12">
                                 <label class="form-label mt-3">상품 사진</label>
                                 <div class="mb-3">
@@ -115,7 +173,7 @@
                             <div class="col-12">
                                 <img src="./basic.png" class="img-thumbnail" width="200" id="previewImage">
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-check mt-3">
@@ -150,6 +208,12 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
+                                <label class="form-label mt-3">상품 사진</label>
+                                <div id="harumarket_product_picture_if"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
                                 <label class="form-label mt-3">상품 상세</label>
                                 <div id="harumarket_product_content_if"></div>
                             </div>
@@ -168,33 +232,112 @@
 
 <!-- 수정 모달창 -->
 <form name="updateForm">
-    <div class="modal" tabindex="-1" id="category_manager_updateModal">
-        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+<div class="modal" tabindex="-1" id="product_manager_updateModal">
+        <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">카테고리 수정</h5>
+                    <h5 class="modal-title">상품 수정</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid pt-1">
                         <div class="row">
-                            <div class="col-6">
-                                <div class="input-group input-group-sm">
-                                    <span class="input-group-text" id="basic-addon1">카테고리 이름</span>
-                                    <input name="haruMarket_productCategory_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="input-group input-group-sm">
-                                    <label class="input-group-text" for="inputGroupSelect01">홈페이지 노출 여부</label>
-                                    <select name="haruMarket_productCategory_view" class="form-select" style="height:31px;">
-                                        <option value="" selected>선택</option>
-                                        <option value="1">노출</option>
-                                        <option value="0">비노출</option>
-                                    </select>
+                            <div class="col-12">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_view">
+                                    <label class="form-check-label" for="harumarket_product_view">
+                                        상품 화면 노출 여부
+                                    </label>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group input-group-sm">
+                                    <label class="input-group-text" for="inputGroupSelect01">카테고리</label>
+                                    <select name="haruMarket_productCategory_index" class="form-select" style="height:31px;">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" id="basic-addon1">상품 이름</span>
+                                    <input name="harumarket_product_name" type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" id="basic-addon1">상품 가격</span>
+                                    <input name="harumarket_product_originPrice" type="int" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group input-group-sm">
+                                    <span class="input-group-text" id="basic-addon1">상품 할인 가격</span>
+                                    <input name="harumarket_product_salePrice" type="int" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" style="height:31px;">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-12">
+                                <label class="form-label mt-3">상품 사진</label>
+                                <div class="mb-3">
+                                    <input class="form-control" type="file" name="harumarket_product_picture" id="formFile2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <img src="./basic.png" class="img-thumbnail" width="200" id="previewImage2">
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_colorView" id="harumarket_product_colorView_uf">
+                                    <label class="form-check-label" for="harumarket_product_colorView">
+                                        상품 색상
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="list-group list-group-horizontal" id="harumarket_productColor_uf" style="visibility: hidden;">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check mt-3">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_sizeView" id="harumarket_product_sizeView_uf">
+                                    <label class="form-check-label" for="harumarket_product_sizeView">
+                                        상품 크기
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="list-group list-group-horizontal" id="harumarket_productSize_uf" style="visibility: hidden;">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="form-label mt-3">상품 사진</label>
+                                <div id="harumarket_product_picture_uf"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label class="form-label mt-3">상품 상세</label>
+                                <div id="harumarket_product_content_uf"></div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
