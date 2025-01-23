@@ -90,7 +90,7 @@
                         <button class="btn btn-primary btn-sm" type="button" id="search">조회</button>
                         <button class="btn btn-success btn-sm" type="button" id="insert">등록</button>
                         <button class="btn btn-warning btn-sm" type="button" id="update">수정</button>
-                        <button class="btn btn-success btn-sm" type="button" id="insert_mecro">등록 매크로</button>
+                        <!-- <button class="btn btn-success btn-sm" type="button" id="insert_mecro">등록 매크로</button> -->
                     </div>
                 </div>
                 
