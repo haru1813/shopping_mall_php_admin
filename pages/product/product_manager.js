@@ -122,11 +122,13 @@ let product_manager = {
         this.firstGrid.setConfig({
             target: $('[data-ax5grid="first-grid"]'),
             columns: [
+                { key: "harumarket_product_index", label: "인덱스"},
                 { key: "haruMarket_productCategory_name", label: "카테고리 이름", width:100 },
                 { key: "harumarket_product_name", label: "상품 이름", width:250 },
                 { key: "harumarket_product_originPrice", label: "상품 가격"},
                 { key: "harumarket_product_salePrice", label: "상품 할인 가격"},
                 { key: "harumarket_product_view", label: "상품 화면 노출 여부", width:120},
+                { key: "harumarket_product_advertiseView", label: "상품 광고 노출 여부", width:120},
                 { key: "harumarket_product_colorView", label: "상품 색상 노출 여부", width:120},
                 { key: "harumarket_product_colorIndexs", label: "상품 색상", width:200},
                 { key: "harumarket_product_sizeView", label: "상품 크기 노출 여부", width:120},
@@ -329,6 +331,7 @@ let product_manager = {
         let harumarket_product_originPrice_max = document.getElementById('harumarket_product_originPrice_max').value;
         let harumarket_product_salePrice_min = document.getElementById('harumarket_product_salePrice_min').value;
         let harumarket_product_salePrice_max = document.getElementById('harumarket_product_salePrice_max').value;
+        let harumarket_product_advertiseView = document.getElementById('harumarket_product_advertiseView').value;
 
         var formData = new FormData();
         formData.append("type", "search");
@@ -343,6 +346,7 @@ let product_manager = {
         formData.append("harumarket_product_originPrice_max", harumarket_product_originPrice_max);
         formData.append("harumarket_product_salePrice_min", harumarket_product_salePrice_min);
         formData.append("harumarket_product_salePrice_max", harumarket_product_salePrice_max);
+        formData.append("harumarket_product_advertiseView", harumarket_product_advertiseView);
 
         data = ajax_send(formData,"./product_manager_api.php");
         this.firstGrid.setData(data.msg);
@@ -361,6 +365,15 @@ let product_manager = {
         }
         else{
             harumarket_product_view = 0;
+        }
+
+        let harumarket_product_advertiseView = 0;
+
+        if(insertForm.harumarket_product_advertiseView.checked){
+            harumarket_product_advertiseView = 1;
+        }
+        else{
+            harumarket_product_advertiseView = 0;
         }
 
         let haruMarket_productCategory_index = insertForm.haruMarket_productCategory_index.value;
@@ -476,6 +489,8 @@ let product_manager = {
         formData.append("harumarket_product_view", harumarket_product_view);
         formData.append("harumarket_product_originPrice", harumarket_product_originPrice);
         formData.append("harumarket_product_salePrice", harumarket_product_salePrice);
+
+        formData.append("harumarket_product_advertiseView", harumarket_product_advertiseView);
         
         data = ajax_send(formData,"./product_manager_api.php");
 
@@ -516,6 +531,14 @@ let product_manager = {
         else
         {
             updateForm.harumarket_product_view.checked = false;
+        }
+
+        if(data.msg[0].harumarket_product_advertiseView == "노출"){
+            updateForm.harumarket_product_advertiseView.checked = true;
+        }
+        else
+        {
+            updateForm.harumarket_product_advertiseView.checked = false;
         }
 
         updateForm.haruMarket_productCategory_index.value = data.msg[0].haruMarket_productCategory_index;
@@ -591,6 +614,15 @@ let product_manager = {
         }
         else{
             harumarket_product_view = 0;
+        }
+
+        let harumarket_product_advertiseView = 0;
+
+        if(updateForm.harumarket_product_advertiseView.checked){
+            harumarket_product_advertiseView = 1;
+        }
+        else{
+            harumarket_product_advertiseView = 0;
         }
 
         let haruMarket_productCategory_index = updateForm.haruMarket_productCategory_index.value;
@@ -705,6 +737,7 @@ let product_manager = {
         formData.append("harumarket_product_view", harumarket_product_view);
         formData.append("harumarket_product_originPrice", harumarket_product_originPrice);
         formData.append("harumarket_product_salePrice", harumarket_product_salePrice);
+        formData.append("harumarket_product_advertiseView", harumarket_product_advertiseView);
         
         data = ajax_send(formData,"./product_manager_api.php");
 

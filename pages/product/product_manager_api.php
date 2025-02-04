@@ -42,6 +42,7 @@ if($type == "insert"){
     $harumarket_product_view = $_POST["harumarket_product_view"];
     $harumarket_product_originPrice = $_POST["harumarket_product_originPrice"];
     $harumarket_product_salePrice = $_POST["harumarket_product_salePrice"];
+    $harumarket_product_advertiseView = $_POST["harumarket_product_advertiseView"];
 
     include($_SERVER["DOCUMENT_ROOT"].'/db/db_connect2.php');
     $pdo->beginTransaction();
@@ -62,8 +63,9 @@ if($type == "insert"){
         $sql .= "harumarket_product_insertUserIndex,";
         $sql .= "harumarket_product_view,";
         $sql .= "harumarket_product_originPrice,";
-        $sql .= "harumarket_product_salePrice";
-        $sql .= ") values(?,?,?,?,?,?,?,?,?,?,?,?);";
+        $sql .= "harumarket_product_salePrice,";
+        $sql .= "harumarket_product_advertiseView";
+        $sql .= ") values(?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
         $stmt = $pdo->prepare($sql);
 
@@ -79,6 +81,7 @@ if($type == "insert"){
         $stmt->bindParam(10, $harumarket_product_view);
         $stmt->bindParam(11, $harumarket_product_originPrice);
         $stmt->bindParam(12, $harumarket_product_salePrice);
+        $stmt->bindParam(13, $harumarket_product_advertiseView);
 
         $stmt->execute();
     }
@@ -106,6 +109,8 @@ if($type == "search"){
     $harumarket_product_salePrice_min = $_POST["harumarket_product_salePrice_min"];
     $harumarket_product_salePrice_max = $_POST["harumarket_product_salePrice_max"];
 
+    $harumarket_product_advertiseView = $_POST["harumarket_product_advertiseView"];
+
     include($_SERVER["DOCUMENT_ROOT"].'/db/db_connect1.php');
 
     $sql = "
@@ -116,6 +121,7 @@ if($type == "search"){
 		,	FORMAT(t1.harumarket_product_originPrice,0) harumarket_product_originPrice
 		,	FORMAT(t1.harumarket_product_salePrice,0) harumarket_product_salePrice
 		,	if(t1.harumarket_product_view=1,'노출','비노출') harumarket_product_view
+        ,	if(t1.harumarket_product_advertiseView=1,'노출','비노출') harumarket_product_advertiseView
 		,	if(t1.harumarket_product_colorView=1,'노출','비노출') harumarket_product_colorView
 		,	if(t1.harumarket_product_sizeView=1,'노출','비노출') harumarket_product_sizeView
 		,	t1.harumarket_product_colorIndexs
@@ -135,7 +141,8 @@ if($type == "search"){
         ('$harumarket_product_colorIndexs'='' or t1.harumarket_product_colorIndexs like '%$harumarket_product_colorIndexs%') and
         ('$harumarket_product_sizeIndexs'='' or t1.harumarket_product_sizeIndexs like '%$harumarket_product_sizeIndexs%') and
         (('$harumarket_product_originPrice_min'='' or '$harumarket_product_originPrice_max'='') or t1.harumarket_product_originPrice between '$harumarket_product_originPrice_min' and '$harumarket_product_originPrice_max') and
-        (('$harumarket_product_salePrice_min'='' or '$harumarket_product_salePrice_max'='') or t1.harumarket_product_salePrice between '$harumarket_product_salePrice_min' and '$harumarket_product_salePrice_max');
+        (('$harumarket_product_salePrice_min'='' or '$harumarket_product_salePrice_max'='') or t1.harumarket_product_salePrice between '$harumarket_product_salePrice_min' and '$harumarket_product_salePrice_max') and
+        ('$harumarket_product_advertiseView'='' or t1.harumarket_product_advertiseView = '$harumarket_product_advertiseView')
     ";
 
     $result = mysqli_query($con, $sql);
@@ -229,6 +236,7 @@ if($type == "update"){
     $harumarket_product_view = $_POST["harumarket_product_view"];
     $harumarket_product_originPrice = $_POST["harumarket_product_originPrice"];
     $harumarket_product_salePrice = $_POST["harumarket_product_salePrice"];
+    $harumarket_product_advertiseView = $_POST["harumarket_product_advertiseView"];
 
     include($_SERVER["DOCUMENT_ROOT"].'/db/db_connect2.php');
     $pdo->beginTransaction();
@@ -249,6 +257,7 @@ if($type == "update"){
         $sql .= "harumarket_product_view=?,";
         $sql .= "harumarket_product_originPrice=?,";
         $sql .= "harumarket_product_salePrice=?,";
+        $sql .= "harumarket_product_advertiseView=?,";
 
         $sql .= "harumarket_product_updateTime=now(),";
         $sql .= "harumarket_product_updateUserIndex=? ";
@@ -267,9 +276,10 @@ if($type == "update"){
         $stmt->bindParam(9, $harumarket_product_view);
         $stmt->bindParam(10, $harumarket_product_originPrice);
         $stmt->bindParam(11, $harumarket_product_salePrice);
+        $stmt->bindParam(12, $harumarket_product_advertiseView);
         
-        $stmt->bindParam(12, $harumarket_product_updateUserIndex);
-        $stmt->bindParam(13, $harumarket_product_index);
+        $stmt->bindParam(13, $harumarket_product_updateUserIndex);
+        $stmt->bindParam(14, $harumarket_product_index);
 
         $stmt->execute();
     }

@@ -16,6 +16,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/pages/user/user_manager.php" id="user_manager">유저 관리</a></li>
                                 <li><a class="dropdown-item" href="/pages/user/cart_manager.php" id="cart_manager">장바구니 관리</a></li>
+                                <li><a class="dropdown-item" href="/pages/user/buy_manager.php" id="buy_manager">결제 관리</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

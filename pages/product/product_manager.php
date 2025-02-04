@@ -83,6 +83,16 @@
                                     <input id="harumarket_product_salePrice_max" type="number" aria-label="Last name" class="form-control" style="height:31px;" placeholder="상품 할인 최대 가격">
                                 </div>
                             </div>
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                <label class="input-group-text" for="inputGroupSelect01">상품 광고 노출 여부</label>
+                                    <select id="harumarket_product_advertiseView" class="form-select" style="height:31px;">
+                                        <option value="" selected>선택</option>
+                                        <option value="1">노출</option>
+                                        <option value="0">비노출</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -128,6 +138,16 @@
                                     <input class="form-check-input" type="checkbox" value="" name="harumarket_product_view">
                                     <label class="form-check-label" for="harumarket_product_view">
                                         상품 화면 노출 여부
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_advertiseView">
+                                    <label class="form-check-label" for="harumarket_product_advertiseView">
+                                        상품 광고 노출 여부
                                     </label>
                                 </div>
                             </div>
@@ -247,6 +267,16 @@
                                     <input class="form-check-input" type="checkbox" value="" name="harumarket_product_view">
                                     <label class="form-check-label" for="harumarket_product_view">
                                         상품 화면 노출 여부
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" name="harumarket_product_advertiseView">
+                                    <label class="form-check-label" for="harumarket_product_advertiseView">
+                                        상품 광고 노출 여부
                                     </label>
                                 </div>
                             </div>
